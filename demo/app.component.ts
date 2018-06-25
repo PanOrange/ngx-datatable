@@ -64,6 +64,7 @@ import { Location, LocationStrategy, HashLocationStrategy } from '@angular/commo
               <li><a href="#dynamic" (click)="state='dynamic'">Dynamic Row Height</a></li>
               <li><a href="#row-details" (click)="state='row-details'">Row Detail</a></li>
               <li><a href="#responsive" (click)="state='responsive'">Responsive</a></li>
+              <li><a href="#row_drag_drop" (click)="state='row_drag_drop'">Drag&Drop</a></li>
             </ul>
           </li>
           <li>
@@ -136,6 +137,7 @@ import { Location, LocationStrategy, HashLocationStrategy } from '@angular/commo
         <multiple-tables-demo *ngIf="state === 'multiple-tables'"></multiple-tables-demo>
         <row-details-demo *ngIf="state === 'row-details'"></row-details-demo>
         <responsive-demo *ngIf="state === 'responsive'"></responsive-demo>
+        <row-drag-drop-demo *ngIf="state === 'row_drag_drop'"></row-drag-drop-demo>
         <filter-demo *ngIf="state === 'filter'"></filter-demo>
         <tabs-demo *ngIf="state === 'hidden'"></tabs-demo>
         <live-data-demo *ngIf="state === 'live'"></live-data-demo>

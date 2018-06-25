@@ -1,11 +1,11 @@
 import {
   Component, Output, EventEmitter, Input, HostBinding, ChangeDetectorRef,
-  ViewChild, OnInit, OnDestroy, ChangeDetectionStrategy
+  ViewChild, OnInit, OnDestroy, ChangeDetectionStrategy, HostListener
 } from '@angular/core';
 import { translateXY, columnsByPin, columnGroupWidths, RowHeightCache } from '../../utils';
 import { SelectionType } from '../../types';
 import { ScrollerComponent } from './scroller.component';
-import { MouseEvent } from '../../events';
+import { RowDragService } from '../../services';
 
 @Component({
   selector: 'datatable-body',
@@ -22,7 +22,7 @@ import { MouseEvent } from '../../events';
       (activate)="activate.emit($event)">
       <datatable-progress
         *ngIf="loadingIndicator">
-      </datatable-progress>
+      </datatable-progress>            
       <datatable-scroller
         *ngIf="rows?.length"
         [scrollbarV]="scrollbarV"
@@ -39,6 +39,9 @@ import { MouseEvent } from '../../events';
           [columns]="columns">
         </datatable-summary-row>
         <datatable-row-wrapper
+          row-draggable
+          [dragEnabled]="true"
+          [dragData]="indexes.first + i"
           [groupedRows]="groupedRows"
           *ngFor="let group of temp; let i = index; trackBy: rowTrackingFn;"
           [innerWidth]="innerWidth"
@@ -51,6 +54,16 @@ import { MouseEvent } from '../../events';
           [expanded]="getRowExpanded(group)"
           [rowIndex]="getRowIndex(group[i])"
           (rowContextmenu)="rowContextmenu.emit($event)">
+          <div row-droppable (onDropEvent)="onDrop($event, indexes.first + i)" 
+          [ngClass]="'drop-area-top' + (dragService.dragActive ? ' drag-active' : '')" 
+              dragOverClass="drop-over-active">
+              <div class="drop-indicator"></div>
+          </div>
+          <div row-droppable (onDropEvent)="onDrop($event, indexes.first + i + 1)" 
+          [ngClass]="'drop-area-bottom' + (dragService.dragActive ? ' drag-active' : '')" 
+            dragOverClass="drop-over-active">
+            <div class="drop-indicator bottom"></div>
+          </div>
           <datatable-body-row
             *ngIf="!groupedRows; else groupedRowsTemplate"
             tabindex="-1"
@@ -210,6 +223,7 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() detailToggle: EventEmitter<any> = new EventEmitter();
+  @Output() rowDropped: EventEmitter<any> = new EventEmitter();
   @Output() rowContextmenu = new EventEmitter<{ event: MouseEvent, row: any }>(false);
 
   @ViewChild(ScrollerComponent) scroller: ScrollerComponent;
@@ -255,7 +269,7 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
   /**
    * Creates an instance of DataTableBodyComponent.
    */
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, public dragService: RowDragService) {
     // declare fn here so we can get access to the `this` property
     this.rowTrackingFn = function(this: any, index: number, row: any): any {
       const idx = this.getRowIndex(row);
@@ -381,7 +395,7 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
     // if grouprowsby has been specified treat row paging
     // parameters as group paging parameters ie if limit 10 has been
     // specified treat it as 10 groups rather than 10 rows
-    if(this.groupedRows) {
+    if (this.groupedRows) {
       let maxRowsPerGroup = 3;
       // if there is only one group set the maximum number of
       // rows per group the same as the total number of rows
@@ -705,9 +719,9 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
       width: `${widths[group]}px`
     };
 
-    if(group === 'left') {
+    if (group === 'left') {
       translateXY(styles, offsetX, 0);
-    } else if(group === 'right') {
+    } else if (group === 'right') {
       const bodyWidth = parseInt(this.innerWidth + '', 0);
       const totalDiff = widths.total - bodyWidth;
       const offsetDiff = totalDiff - offsetX;
@@ -716,6 +730,11 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
     }
 
     return styles;
+  }
+
+  @HostListener('dragend', ['$event'])
+  onDragEnd() {
+    this.dragService.endDrag();
   }
 
   /**
@@ -739,4 +758,14 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
     return this.rowIndexes.get(row) || 0;
   }
 
+  /**
+   * Event when user dropped a row on a specific index
+   * For movement logic see demo page (row-drag-drop.component)
+   */
+  onDrop(startIndex, destIndex) {    
+    this.rowDropped.emit({
+      startindex: startIndex,
+      destindex: destIndex
+    });
+  }
 }

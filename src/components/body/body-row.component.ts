@@ -122,10 +122,10 @@ export class DataTableBodyRowComponent implements DoCheck {
   private _rowDiffer: KeyValueDiffer<{}, {}>;
 
   constructor(
-      private differs: KeyValueDiffers,
-      @SkipSelf() private scrollbarHelper: ScrollbarHelper,
-      private cd: ChangeDetectorRef,
-      element: ElementRef) {
+    private differs: KeyValueDiffers,
+    @SkipSelf() private scrollbarHelper: ScrollbarHelper,
+    private cd: ChangeDetectorRef,
+    element: ElementRef) {
     this._element = element.nativeElement;
     this._rowDiffer = differs.find({}).create();
   }
@@ -206,11 +206,11 @@ export class DataTableBodyRowComponent implements DoCheck {
   @HostListener('mouseenter', ['$event'])
   onMouseenter(event: any): void {
     this.activate.emit({
-        type: 'mouseenter',
-        event,
-        row: this.row,
-        rowElement: this._element
-      });
+      type: 'mouseenter',
+      event,
+      row: this.row,
+      rowElement: this._element
+    });
   }
 
   recalculateColumns(val: any[] = this.columns): void {
@@ -218,6 +218,24 @@ export class DataTableBodyRowComponent implements DoCheck {
     const colsByPin = columnsByPin(this._columns);
     this._columnsByPin = columnsByPinArr(this._columns);
     this._columnGroupWidths = columnGroupWidths(colsByPin, this._columns);
+  }
+
+  simulateClick() {
+    if (this._columns.length > 0 && !this.isSelected) {
+      this.activate.emit({
+        type: 'click',
+        event: null,
+        row: this.row,
+        group: this.group,
+        rowHeight: this.rowHeight,
+        column: this._columns[0],
+        value: '',
+        cellIndex: 0,
+        rowElement: this._element,
+        cellElement: this._element
+      });
+    }
+
   }
 
 }

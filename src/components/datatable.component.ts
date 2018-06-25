@@ -84,7 +84,8 @@ import { BehaviorSubject, Subscription } from 'rxjs';
         (activate)="activate.emit($event)"
         (rowContextmenu)="onRowContextmenu($event)"
         (select)="onBodySelect($event)"
-        (scroll)="onBodyScroll($event)">
+        (scroll)="onBodyScroll($event)"
+        (rowDropped)="onRowDropped($event)">
       </datatable-body>
       <datatable-footer
         *ngIf="footerHeight"
@@ -494,6 +495,11 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
   @Output() resize: EventEmitter<any> = new EventEmitter();
 
   /**
+   * Row was dropped
+   */
+  @Output() rowDropped: EventEmitter<any> = new EventEmitter();
+
+  /**
    * The context menu was invoked on the table.
    * type indicates whether the header or the body was clicked.
    * content contains either the column or the row that was clicked.
@@ -736,7 +742,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
   ngAfterContentInit() {
     this.columnTemplates.changes.subscribe(v =>
       this.translateColumns(v));
-      
+
     this.listenForColumnInputChanges();
   }
 
@@ -1118,11 +1124,18 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
   onBodySelect(event: any): void {
     this.select.emit(event);
   }
-    
+
+  /**
+   * A row drop was made
+   */
+  onRowDropped(event: any) {
+    this.rowDropped.emit(event);
+  }
+
   ngOnDestroy() {
     this._subscriptions.forEach(subscription => subscription.unsubscribe());
   }
-  
+
   /**
    * listen for changes to input bindings of all DataTableColumnDirective and
    * trigger the columnTemplates.changes observable to emit

@@ -31,13 +31,16 @@ import {
   LongPressDirective,
   ResizeableDirective,
   OrderableDirective,
-  DraggableDirective
+  DraggableDirective,
+  RowDraggableDirective,
+  RowDropDirective
 } from './directives';
 
 import {
   ScrollbarHelper,
   DimensionsHelper,
-  ColumnChangesService
+  ColumnChangesService,
+  RowDragService
 } from './services';
 
 @NgModule({
@@ -47,7 +50,8 @@ import {
   providers: [
     ScrollbarHelper,
     DimensionsHelper,
-    ColumnChangesService
+    ColumnChangesService,
+    RowDragService
   ],
   declarations: [
     DataTableFooterTemplateDirective,
@@ -55,6 +59,8 @@ import {
     DraggableDirective,
     ResizeableDirective,
     OrderableDirective,
+    RowDraggableDirective,
+    RowDropDirective,
     LongPressDirective,
     ScrollerComponent,
     DatatableComponent,
@@ -76,7 +82,7 @@ import {
     DataTableColumnCellDirective,
     DatatableFooterDirective,
     DatatableGroupHeaderTemplateDirective,
-    DataTableSummaryRowComponent,
+    DataTableSummaryRowComponent
   ],
   exports: [
     DatatableComponent,

@@ -14,6 +14,7 @@ import { MultipleTablesComponent } from './basic/multiple.component';
 import { FullScreenComponent } from './basic/fullscreen.component';
 import { RowDetailsComponent } from './basic/row-detail.component';
 import { ResponsiveComponent } from './basic/responsive.component';
+import { RowDragDropComponent } from './basic/row-drag-drop.component';
 import { FilterBarComponent } from './basic/filter.component';
 import { TabsDemoComponent } from './basic/tabs.component';
 import { LiveDataComponent } from './basic/live.component';
@@ -23,6 +24,7 @@ import { RowCssComponent } from './basic/css.component';
 import { DynamicHeightComponent } from './basic/dynamic-height.component';
 import { FooterDemoComponent } from './basic/footer.component';
 import { RowGroupingComponent } from './basic/row-grouping.component';
+
 
 // -- Themes
 import { BootstrapThemeComponent } from './basic/bootstrap.component';
@@ -79,6 +81,7 @@ import { SummaryRowInlineHtmlComponent } from './summary/summary-row-inline-html
     MultipleTablesComponent,
     RowDetailsComponent,
     ResponsiveComponent,
+    RowDragDropComponent,
     ClientPagingComponent,
     ServerPagingComponent,
     ServerScrollingComponent,
