@@ -42,4 +42,5 @@ export declare class DataTableBodyRowComponent implements DoCheck {
     onKeyDown(event: KeyboardEvent): void;
     onMouseenter(event: any): void;
     recalculateColumns(val?: any[]): void;
+    simulateClick(): void;
 }

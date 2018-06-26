@@ -24,12 +24,17 @@ var DataTableSelectionComponent = /** @class */ (function () {
         var multi = this.selectionType === types_1.SelectionType.multi;
         var multiClick = this.selectionType === types_1.SelectionType.multiClick;
         var selected = [];
-        if (multi || chkbox || multiClick) {
-            if (event.shiftKey) {
-                selected = utils_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
-            }
-            else if (event.ctrlKey || event.metaKey || multiClick || chkbox) {
-                selected = utils_1.selectRows(this.selected.slice(), row, this.getRowSelectedIdx.bind(this));
+        if (event !== null) {
+            if (multi || chkbox || multiClick) {
+                if (event.shiftKey) {
+                    selected = utils_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+                }
+                else if (event.ctrlKey || event.metaKey || multiClick || chkbox) {
+                    selected = utils_1.selectRows(this.selected.slice(), row, this.getRowSelectedIdx.bind(this));
+                }
+                else {
+                    selected = utils_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
+                }
             }
             else {
                 selected = utils_1.selectRows([], row, this.getRowSelectedIdx.bind(this));

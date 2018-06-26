@@ -262,6 +262,10 @@ export declare class DatatableComponent implements OnInit, DoCheck, AfterViewIni
      */
     resize: EventEmitter<any>;
     /**
+     * Row was dropped
+     */
+    rowDropped: EventEmitter<any>;
+    /**
      * The context menu was invoked on the table.
      * type indicates whether the header or the body was clicked.
      * content contains either the column or the row that was clicked.
@@ -479,6 +483,10 @@ export declare class DatatableComponent implements OnInit, DoCheck, AfterViewIni
      * A row was selected from body
      */
     onBodySelect(event: any): void;
+    /**
+     * A row drop was made
+     */
+    onRowDropped(event: any): void;
     ngOnDestroy(): void;
     /**
      * listen for changes to input bindings of all DataTableColumnDirective and

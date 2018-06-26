@@ -176,6 +176,22 @@ var DataTableBodyRowComponent = /** @class */ (function () {
         this._columnsByPin = utils_1.columnsByPinArr(this._columns);
         this._columnGroupWidths = utils_1.columnGroupWidths(colsByPin, this._columns);
     };
+    DataTableBodyRowComponent.prototype.simulateClick = function () {
+        if (this._columns.length > 0 && !this.isSelected) {
+            this.activate.emit({
+                type: 'click',
+                event: null,
+                row: this.row,
+                group: this.group,
+                rowHeight: this.rowHeight,
+                column: this._columns[0],
+                value: '',
+                cellIndex: 0,
+                rowElement: this._element,
+                cellElement: this._element
+            });
+        }
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Array),

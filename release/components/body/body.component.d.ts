@@ -2,8 +2,10 @@ import { EventEmitter, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/cor
 import { RowHeightCache } from '../../utils';
 import { SelectionType } from '../../types';
 import { ScrollerComponent } from './scroller.component';
+import { RowDragService } from '../../services';
 export declare class DataTableBodyComponent implements OnInit, OnDestroy {
     private cd;
+    dragService: RowDragService;
     scrollbarV: boolean;
     scrollbarH: boolean;
     loadingIndicator: boolean;
@@ -40,6 +42,7 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
     activate: EventEmitter<any>;
     select: EventEmitter<any>;
     detailToggle: EventEmitter<any>;
+    rowDropped: EventEmitter<any>;
     rowContextmenu: EventEmitter<{
         event: MouseEvent;
         row: any;
@@ -74,7 +77,7 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
     /**
      * Creates an instance of DataTableBodyComponent.
      */
-    constructor(cd: ChangeDetectorRef);
+    constructor(cd: ChangeDetectorRef, dragService: RowDragService);
     /**
      * Called after the constructor, initializing input properties
      */
@@ -189,6 +192,7 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
     stylesByGroup(group: string): {
         width: string;
     };
+    onDragEnd(): void;
     /**
      * Returns if the row was expanded and set default row expansion when row expansion is empty
      */
@@ -197,4 +201,13 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
      * Gets the row index given a row
      */
     getRowIndex(row: any): number;
+    /**
+     * Event when user dropped a row on a specific index
+     * For movement logic see demo page (row-drag-drop.component)
+     */
+    onDrop(startIndex: number, destIndex: number): void;
+    /**
+     * Determines if drag is enabled
+     */
+    dragEnabled(): boolean;
 }
