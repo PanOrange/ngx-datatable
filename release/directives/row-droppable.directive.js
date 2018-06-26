@@ -59,7 +59,6 @@ var RowDropDirective = /** @class */ (function () {
         __metadata("design:returntype", void 0)
     ], RowDropDirective.prototype, "onDragOver", null);
     __decorate([
-        core_1.HostListener('dragleave', ['$event']),
         core_1.HostListener('dragexit', ['$event']),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),

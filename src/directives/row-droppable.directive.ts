@@ -55,12 +55,10 @@ export class RowDropDirective {
     this.dragService.setActiveDropElement(this);
     event.preventDefault();
   }
-
-  @HostListener('dragleave', ['$event'])
+  
   @HostListener('dragexit', ['$event'])
-  onDragLeave() {
+  onDragLeave() {    
     this.removeDragOverClass();
-
   }
 
   @HostListener('drop', ['$event'])
