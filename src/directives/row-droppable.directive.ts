@@ -49,7 +49,7 @@ export class RowDropDirective {
 
   @HostListener('dragenter', ['$event'])
   @HostListener('dragover', ['$event'])
-  onDragOver(event) {
+  onDragOver(event: DragEvent) {
     const { zone = 'zone' } = this.options;
 
     this.dragService.setActiveDropElement(this);
@@ -64,7 +64,7 @@ export class RowDropDirective {
   }
 
   @HostListener('drop', ['$event'])
-  onDrop(event) {
+  onDrop(event: DragEvent) {
     const data = Number.parseInt(event.dataTransfer.getData('data'));
     this.removeDragOverClass();
     this.dragService.endDrag();

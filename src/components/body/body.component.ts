@@ -40,7 +40,7 @@ import { RowDragService } from '../../services';
         </datatable-summary-row>
         <datatable-row-wrapper
           row-draggable
-          [dragEnabled]="true"
+          [dragEnabled]="dragEnabled()"
           [dragData]="indexes.first + i"
           [groupedRows]="groupedRows"
           *ngFor="let group of temp; let i = index; trackBy: rowTrackingFn;"
@@ -762,10 +762,17 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
    * Event when user dropped a row on a specific index
    * For movement logic see demo page (row-drag-drop.component)
    */
-  onDrop(startIndex, destIndex) {    
+  onDrop(startIndex: number, destIndex: number) {
     this.rowDropped.emit({
       startindex: startIndex,
       destindex: destIndex
     });
+  }
+
+  /**
+   * Determines if drag is enabled
+   */
+  dragEnabled() {
+    return this.selectionType !== SelectionType.cell && this.selectionType !== SelectionType.checkbox;
   }
 }

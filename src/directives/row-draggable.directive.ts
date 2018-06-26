@@ -30,7 +30,7 @@ export class RowDraggableDirective {
   }
 
   @HostListener('dragstart', ['$event'])
-  onDragStart(event) {
+  onDragStart(event: DragEvent) {
     // when dragging row is not selected --> select it programmatically
     if (this.row !== null) {
       this.row.simulateClick();
