@@ -30,6 +30,7 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
     summaryRow: boolean;
     summaryPosition: string;
     summaryHeight: number;
+    rowsDraggable: boolean;
     pageSize: number;
     rows: any[];
     columns: any[];

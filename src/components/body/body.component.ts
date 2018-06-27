@@ -145,6 +145,7 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
   @Input() summaryRow: boolean;
   @Input() summaryPosition: string;
   @Input() summaryHeight: number;
+  @Input() rowsDraggable: boolean;
 
   @Input() set pageSize(val: number) {
     this._pageSize = val;
@@ -773,6 +774,9 @@ export class DataTableBodyComponent implements OnInit, OnDestroy {
    * Determines if drag is enabled
    */
   dragEnabled() {
+    if(!this.rowsDraggable) {
+      return false;
+    }
     return this.selectionType !== SelectionType.cell && this.selectionType !== SelectionType.checkbox;
   }
 }

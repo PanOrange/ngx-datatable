@@ -595,6 +595,9 @@ var DataTableBodyComponent = /** @class */ (function () {
      * Determines if drag is enabled
      */
     DataTableBodyComponent.prototype.dragEnabled = function () {
+        if (!this.rowsDraggable) {
+            return false;
+        }
         return this.selectionType !== types_1.SelectionType.cell && this.selectionType !== types_1.SelectionType.checkbox;
     };
     __decorate([
@@ -693,6 +696,10 @@ var DataTableBodyComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "summaryHeight", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], DataTableBodyComponent.prototype, "rowsDraggable", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Number),

@@ -80,6 +80,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
         [summaryRow]="summaryRow"
         [summaryHeight]="summaryHeight"
         [summaryPosition]="summaryPosition"
+        [rowsDraggable]="rowsDraggable"
         (page)="onBodyPage($event)"
         (activate)="activate.emit($event)"
         (rowContextmenu)="onRowContextmenu($event)"
@@ -458,6 +459,11 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
    * A property holds a summary row position: top/bottom
    */
   @Input() summaryPosition: string = 'top';
+
+  /**
+   * A property holds if row drag and drop is enabled
+   */
+  @Input() rowsDraggable: boolean = true;
 
   /**
    * Body was scrolled typically in a `scrollbarV:true` scenario.

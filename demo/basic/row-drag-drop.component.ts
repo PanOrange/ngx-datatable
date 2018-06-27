@@ -23,6 +23,7 @@ import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
         [rowHeight]="50"
         [selected]="selected"
         (select)='onSelect($event)'
+        [rowsDraggable]="true"
         (rowDropped)="onDrop($event)">
         <ngx-datatable-column name="Id" [width]="80"></ngx-datatable-column>
         <ngx-datatable-column name="Name" [width]="300"></ngx-datatable-column>
