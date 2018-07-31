@@ -48,6 +48,7 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
         event: MouseEvent;
         row: any;
     }>;
+    treeAction: EventEmitter<any>;
     scroller: ScrollerComponent;
     /**
      * Returns if selection is enabled.
@@ -55,7 +56,7 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
     readonly selectEnabled: boolean;
     /**
      * Property that would calculate the height of scroll bar
-     * based on the row heights cache for virtual scroll. Other scenarios
+     * based on the row heights cache for virtual scroll and virtualization. Other scenarios
      * calculate scroll height automatically (as height will be undefined).
      */
     readonly scrollHeight: number | undefined;
@@ -211,4 +212,5 @@ export declare class DataTableBodyComponent implements OnInit, OnDestroy {
      * Determines if drag is enabled
      */
     dragEnabled(): boolean;
+    onTreeAction(row: any): void;
 }
