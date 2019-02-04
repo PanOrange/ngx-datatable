@@ -1,5 +1,5 @@
 /**
- * angular2-data-table v"13.0.1" (https://github.com/swimlane/angular2-data-table)
+ * angular2-data-table v"14.0.0" (https://github.com/swimlane/angular2-data-table)
  * Copyright 2016
  * Licensed under MIT
  */
@@ -552,8 +552,8 @@ var DataTableBodyCellComponent = /** @class */ (function () {
             return html;
         return html.replace(/<\/?[^>]+(>|$)/g, '');
     };
-    DataTableBodyCellComponent.prototype.onTreeAction = function (row) {
-        this.treeAction.emit();
+    DataTableBodyCellComponent.prototype.onTreeAction = function () {
+        this.treeAction.emit(this.row);
     };
     DataTableBodyCellComponent.prototype.calcLeftMargin = function (column, row) {
         var levelIndent = column.treeLevelIndent != null ? column.treeLevelIndent : 50;
@@ -2247,6 +2247,7 @@ var DataTableSelectionComponent = /** @class */ (function () {
         this.select = new core_1.EventEmitter();
     }
     DataTableSelectionComponent.prototype.selectRow = function (event, index, row) {
+        var _a;
         if (!this.selectEnabled)
             return;
         var chkbox = this.selectionType === types_1.SelectionType.checkbox;
@@ -2281,7 +2282,6 @@ var DataTableSelectionComponent = /** @class */ (function () {
         this.select.emit({
             selected: selected
         });
-        var _a;
     };
     DataTableSelectionComponent.prototype.onActivate = function (model, index) {
         var type = model.type, event = model.event, row = model.row;
@@ -2434,13 +2434,16 @@ __export(__webpack_require__("./src/components/body/summary/summary-row.componen
 
 "use strict";
 
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2817,13 +2820,16 @@ exports.DataTableColumnCellTreeToggle = DataTableColumnCellTreeToggle;
 
 "use strict";
 
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3498,8 +3504,8 @@ var DatatableComponent = /** @class */ (function () {
      */
     DatatableComponent.prototype.onBodyPage = function (_a) {
         var offset = _a.offset;
-        // Avoid pagination caming from body events like scroll when the table 
-        // has no virtualization and the external paging is enable. 
+        // Avoid pagination caming from body events like scroll when the table
+        // has no virtualization and the external paging is enable.
         // This means, let's the developer handle pagination by my him(her) self
         if (this.externalPaging && !this.virtualization) {
             return;
@@ -3689,6 +3695,7 @@ var DatatableComponent = /** @class */ (function () {
      * Toggle all row selection
      */
     DatatableComponent.prototype.onHeaderSelect = function (event) {
+        var _a, _b;
         if (this.selectAllRowsOnPage) {
             // before we splice, chk if we currently have all selected
             var first = this.bodyComponent.indexes.first;
@@ -3714,7 +3721,6 @@ var DatatableComponent = /** @class */ (function () {
         this.select.emit({
             selected: this.selected
         });
-        var _a, _b;
     };
     /**
      * A row was selected from body
@@ -4750,13 +4756,16 @@ exports.DataTableHeaderCellComponent = DataTableHeaderCellComponent;
 
 "use strict";
 
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6207,7 +6216,7 @@ exports.VisibilityDirective = VisibilityDirective;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 Object.defineProperty(exports, "__esModule", { value: true });
-/* tslint:disable:variable-name */
+/* tslint:disable */
 exports.MouseEvent = ((typeof window !== 'undefined' && window) || global).MouseEvent;
 exports.KeyboardEvent = ((typeof window !== 'undefined' && window) || global).KeyboardEvent;
 exports.Event = ((typeof window !== 'undefined' && window) || global).Event;
